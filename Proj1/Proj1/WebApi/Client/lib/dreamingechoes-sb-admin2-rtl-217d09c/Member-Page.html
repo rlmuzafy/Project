@@ -26,8 +26,12 @@
     </style>
 
     <script>
+
+
+
+
        function show() {
-            var _id = 13667050
+            var _id = getQueryString("id")
             AjaxJsonHandler(SystemHelper.WebApiEndPoints.member + _id , SystemHelper.HttpVerbs.GET, null, ShowMember, GenericError);
         };
 
@@ -47,11 +51,33 @@
             $("#Pants").html(member.PantsSize);
             $("#Shoes").html(member.ShoesSize);
             $("#EPreson").html(member.ContactName);
+            //let d = member.MedicalTestDate;
+            let date = member.MedicalTestDate.split('T')[0];
+            $('#MedDate').val(date);
 
-            //צריך להביא את השם העיר לפי הקוד - כרגע לא עובד.. 
+            //function formatDate(date) {
+            //    var monthNames = [
+            //        "January", "February", "March",
+            //        "April", "May", "June", "July",
+            //        "August", "September", "October",
+            //        "November", "December"
+            //    ];
+
+            //    var day = date.getDate();
+            //    var monthIndex = date.getMonth();
+            //    var year = date.getFullYear();
+
+            //    return day + ' ' + monthNames[monthIndex] + ' ' + year;
+            //}
+
+
             function ShowCity(City) {
                 $("#city").html(City.CityName);
             }
+        }
+
+        function BackToMemebers() {
+            location.href = "Members2.html";
         }
     
        
@@ -515,7 +541,7 @@
                                             <tr>
                                                 <td>תאריך בדיקה רפואית אחרונה</td>
                                                 <!--איך להעביר את התאריך לפורמט ישראלי-->
-                                                <td><input class="form-control" type="date" data-date-format="DD/MM/YYYY" id="new_MedDate"></td>
+                                                <td> <input type="date" pattern="" data-date-format="DD/MM/YYYY" id="MedDate"></td>
                                             </tr>
                                             <tr>
                                                 <td>מידת חולצה</td>
@@ -543,7 +569,7 @@
                                                 <td><input class="form-control" type="text" placeholder="לדוגמא: בן/בת זוג" id="new_EPersonRel"></td>
                                             </tr>
                                             <tr>
-                                                <td colspan="2"><input type="button" class="button" value="הוסף מתנדב" onclick="SubmitMemeber()" /></td>
+                                                <td colspan="2"><input type="button" class="button" value="חזרה למתנדבים" onclick="BackToMemebers()" /></td>
                                             </tr>
                                         </table>
 

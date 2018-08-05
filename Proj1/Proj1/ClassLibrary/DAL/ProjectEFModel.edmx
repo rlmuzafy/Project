@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ProjectEFModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ProjectEFModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="City">
           <Key>
             <PropertyRef Name="CityCode" />
@@ -30,7 +30,47 @@
           <Property Name="ShirtSize" Type="nvarchar" MaxLength="50" />
           <Property Name="PantsSize" Type="nvarchar" MaxLength="50" />
           <Property Name="ShoesSize" Type="nvarchar" MaxLength="50" />
+          <Property Name="MedicalTestDate" Type="date" />
         </EntityType>
+        <EntityType Name="Member_Team">
+          <Key>
+            <PropertyRef Name="MemberId" />
+            <PropertyRef Name="TeamTeamNo" />
+          </Key>
+          <Property Name="MemberId" Type="int" Nullable="false" />
+          <Property Name="TeamTeamNo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="TeamNo" />
+          </Key>
+          <Property Name="TeamNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TeamName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FKMember_Tea274980">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Member_Team" Type="Self.Member_Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Member_Team">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FKMember_Tea841859">
+          <End Role="Team" Type="Self.Team" Multiplicity="1" />
+          <End Role="Member_Team" Type="Self.Member_Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="TeamNo" />
+            </Principal>
+            <Dependent Role="Member_Team">
+              <PropertyRef Name="TeamTeamNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FKMember652489">
           <End Role="City" Type="Self.City" Multiplicity="1" />
           <End Role="Member" Type="Self.Member" Multiplicity="*" />
@@ -46,6 +86,16 @@
         <EntityContainer Name="ProjectEFModelStoreContainer">
           <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Member_Team" EntityType="Self.Member_Team" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Team" EntityType="Self.Team" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FKMember_Tea274980" Association="Self.FKMember_Tea274980">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Member_Team" EntitySet="Member_Team" />
+          </AssociationSet>
+          <AssociationSet Name="FKMember_Tea841859" Association="Self.FKMember_Tea841859">
+            <End Role="Team" EntitySet="Team" />
+            <End Role="Member_Team" EntitySet="Member_Team" />
+          </AssociationSet>
           <AssociationSet Name="FKMember652489" Association="Self.FKMember652489">
             <End Role="City" EntitySet="City" />
             <End Role="Member" EntitySet="Member" />
@@ -82,6 +132,8 @@
           <Property Name="PantsSize" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ShoesSize" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="City" Relationship="Self.FKMember652489" FromRole="Member" ToRole="City" />
+          <NavigationProperty Name="Teams" Relationship="ProjectEFModel.Member_Team" FromRole="Member" ToRole="Team" />
+          <Property Name="MedicalTestDate" Type="DateTime" Precision="0" />
         </EntityType>
         <Association Name="FKMember652489">
           <End Role="City" Type="Self.City" Multiplicity="1" />
@@ -95,14 +147,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ProjDbContext" annotation:LazyLoadingEnabled="false">
+        <EntityContainer Name="ProjDbContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Cities" EntityType="Self.City" />
           <EntitySet Name="Members" EntityType="Self.Member" />
           <AssociationSet Name="FKMember652489" Association="Self.FKMember652489">
             <End Role="City" EntitySet="Cities" />
             <End Role="Member" EntitySet="Members" />
           </AssociationSet>
+          <EntitySet Name="Teams" EntityType="ProjectEFModel.Team" />
+          <AssociationSet Name="Member_Team" Association="ProjectEFModel.Member_Team">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Team" EntitySet="Teams" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="TeamNo" />
+          </Key>
+          <Property Name="TeamNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TeamName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Members" Relationship="ProjectEFModel.Member_Team" FromRole="Team" ToRole="Member" />
+        </EntityType>
+        <Association Name="Member_Team">
+          <End Type="ProjectEFModel.Member" Role="Member" Multiplicity="*" />
+          <End Type="ProjectEFModel.Team" Role="Team" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -120,6 +189,7 @@
           <EntitySetMapping Name="Members">
             <EntityTypeMapping TypeName="ProjectEFModel.Member">
               <MappingFragment StoreEntitySet="Member">
+                <ScalarProperty Name="MedicalTestDate" ColumnName="MedicalTestDate" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -137,6 +207,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Teams">
+            <EntityTypeMapping TypeName="ProjectEFModel.Team">
+              <MappingFragment StoreEntitySet="Team">
+                <ScalarProperty Name="TeamName" ColumnName="TeamName" />
+                <ScalarProperty Name="TeamNo" ColumnName="TeamNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Member_Team" TypeName="ProjectEFModel.Member_Team" StoreEntitySet="Member_Team">
+            <EndProperty Name="Team">
+              <ScalarProperty Name="TeamNo" ColumnName="TeamTeamNo" />
+            </EndProperty>
+            <EndProperty Name="Member">
+              <ScalarProperty Name="Id" ColumnName="MemberId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

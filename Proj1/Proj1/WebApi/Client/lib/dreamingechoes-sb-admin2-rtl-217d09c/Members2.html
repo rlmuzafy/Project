@@ -113,8 +113,9 @@
                         { 'data': "Mail" },
                         {
                             'data': "Id",
-                            'render': function () {
-                                var btnTag = "<input type='button' value='צפייה' onclick='GoToMember()')/>";
+                            'render': function (d) {
+                                
+                                var btnTag = `<input type='button' value='צפייה' onclick='GoToMember(${d})')/>`;
                                 return btnTag;
                             }
                         }
@@ -124,9 +125,9 @@
             }
         }
 
-        function GoToMember() {
+        function GoToMember(id) {
 
-            location.href = "Member-Page.html";
+            location.href = "Member-Page.html?id=" + id;
           
         }
 

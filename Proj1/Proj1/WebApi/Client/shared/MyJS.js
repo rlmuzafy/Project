@@ -39,5 +39,19 @@ var SystemHelper = {
         return JSON.parse(localStorage.getItem(key));
     }
 
+    
+}
 
+function getQueryString(par) {
+    var QueryStringHelper = location.search.substring(1).split('&');
+
+    for (i in QueryStringHelper) {
+        var x = QueryStringHelper[i].split("=");
+
+        if (x[0] == par) {
+            return x[1];
+        }
+    }
+
+    return "";
 }

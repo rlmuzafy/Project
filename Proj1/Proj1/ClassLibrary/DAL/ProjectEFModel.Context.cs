@@ -18,7 +18,6 @@ namespace ClassLibrary.DAL
         public ProjDbContext()
             : base("name=ProjDbContext")
         {
-            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -28,5 +27,6 @@ namespace ClassLibrary.DAL
     
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Member> Members { get; set; }
+        public virtual DbSet<Team> Teams { get; set; }
     }
 }

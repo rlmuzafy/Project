@@ -72,6 +72,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ProjectEFModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DAL\Team.cs">
+      <DependentUpon>ProjectEFModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

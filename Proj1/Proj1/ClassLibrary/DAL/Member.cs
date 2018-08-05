@@ -14,6 +14,11 @@ namespace ClassLibrary.DAL
     
     public partial class Member
     {
+        public Member()
+        {
+            this.Teams = new HashSet<Team>();
+        }
+    
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -28,7 +33,10 @@ namespace ClassLibrary.DAL
         public string ShirtSize { get; set; }
         public string PantsSize { get; set; }
         public string ShoesSize { get; set; }
-    
+        public Nullable<System.DateTime> MedicalTestDate { get; set; }
+        //public DateTime MedicalTestDate { get; set; }
+
         public virtual City City { get; set; }
+        public virtual ICollection<Team> Teams { get; set; }
     }
 }
