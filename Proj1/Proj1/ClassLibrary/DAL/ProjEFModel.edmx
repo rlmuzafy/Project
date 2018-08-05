@@ -1,0 +1,887 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="CityCode" />
+          </Key>
+          <Property Name="CityCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CityName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Equipment">
+          <Key>
+            <PropertyRef Name="EqCode" />
+          </Key>
+          <Property Name="EqCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EquipmentName" Type="nvarchar" MaxLength="50" />
+          <Property Name="QuantityInStock" Type="int" />
+          <Property Name="Organization OrgCode" Type="int" Nullable="false" />
+          <Property Name="EquipmentTypeTypeCode" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EquipmentType">
+          <Key>
+            <PropertyRef Name="TypeCode" />
+          </Key>
+          <Property Name="TypeCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="EventCode" />
+          </Key>
+          <Property Name="EventCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventName" Type="nvarchar" MaxLength="100" />
+          <Property Name="FromDate" Type="date" />
+          <Property Name="ToDate" Type="date" />
+          <Property Name="MapsLocation" Type="text" />
+          <Property Name="LocationsDescription" Type="nvarchar" MaxLength="100" />
+          <Property Name="StartTime" Type="time" Precision="7" />
+          <Property Name="EndTime" Type="time" Precision="7" />
+          <Property Name="ReportedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="EventDescription" Type="text" />
+          <Property Name="NoOfRescued" Type="int" />
+          <Property Name="RescuedAges" Type="int" />
+          <Property Name="RescuedDesc" Type="nvarchar(max)" />
+          <Property Name="NoOfFatalities" Type="int" />
+          <Property Name="NoOfSurvivors" Type="int" />
+          <Property Name="PersonInCharge" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Event_EquipmentType">
+          <Key>
+            <PropertyRef Name="EventEventCode" />
+            <PropertyRef Name="EquipmentTypeTypeCode" />
+          </Key>
+          <Property Name="EventEventCode" Type="int" Nullable="false" />
+          <Property Name="EquipmentTypeTypeCode" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Event_Organization">
+          <Key>
+            <PropertyRef Name="EventEventCode" />
+            <PropertyRef Name="Organization OrgCode" />
+          </Key>
+          <Property Name="EventEventCode" Type="int" Nullable="false" />
+          <Property Name="Organization OrgCode" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EventType">
+          <Key>
+            <PropertyRef Name="EventTypeCode" />
+          </Key>
+          <Property Name="EventTypeCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventTypeName" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="EventType_Event">
+          <Key>
+            <PropertyRef Name="EventTypeEventTypeCode" />
+            <PropertyRef Name="EventEventCode" />
+          </Key>
+          <Property Name="EventTypeEventTypeCode" Type="int" Nullable="false" />
+          <Property Name="EventEventCode" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Instructor">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mail" Type="nvarchar" MaxLength="50" />
+          <Property Name="Organization OrgCode" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Lesson">
+          <Key>
+            <PropertyRef Name="EventEventCode" />
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="EventEventCode" Type="int" Nullable="false" />
+          <Property Name="Code" Type="int" Nullable="false" />
+          <Property Name="LessonType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="text" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Photo" Type="nvarchar(max)" />
+          <Property Name="PhoneNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mail" Type="nvarchar" MaxLength="50" />
+          <Property Name="MirsNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="CityCityCode" Type="int" Nullable="false" />
+          <Property Name="ContactName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactRelation" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShirtSize" Type="nvarchar" MaxLength="50" />
+          <Property Name="PantsSize" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShoesSize" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Member_Event">
+          <Key>
+            <PropertyRef Name="MemberId" />
+            <PropertyRef Name="EventEventCode" />
+          </Key>
+          <Property Name="MemberId" Type="int" Nullable="false" />
+          <Property Name="EventEventCode" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Member_Team">
+          <Key>
+            <PropertyRef Name="MemberId" />
+            <PropertyRef Name="TeamTeamNo" />
+          </Key>
+          <Property Name="MemberId" Type="int" Nullable="false" />
+          <Property Name="TeamTeamNo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Member_Team_qualification">
+          <Key>
+            <PropertyRef Name="Member_TeamMemberId" />
+            <PropertyRef Name="Member_TeamTeamTeamNo" />
+            <PropertyRef Name="QulificationQulificationCode" />
+          </Key>
+          <Property Name="Member_TeamMemberId" Type="int" Nullable="false" />
+          <Property Name="Member_TeamTeamTeamNo" Type="int" Nullable="false" />
+          <Property Name="QulificationQulificationCode" Type="int" Nullable="false" />
+          <Property Name="DateOfQulification" Type="date" />
+        </EntityType>
+        <EntityType Name="Member_Team_Training">
+          <Key>
+            <PropertyRef Name="Member_TeamMemberId" />
+            <PropertyRef Name="Member_TeamTeamTeamNo" />
+            <PropertyRef Name="TrainingTrainingCode" />
+          </Key>
+          <Property Name="Member_TeamMemberId" Type="int" Nullable="false" />
+          <Property Name="Member_TeamTeamTeamNo" Type="int" Nullable="false" />
+          <Property Name="TrainingTrainingCode" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Organization">
+          <Key>
+            <PropertyRef Name="OrgCode" />
+          </Key>
+          <Property Name="OrgCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrgName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhoneNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Particular Event">
+          <Key>
+            <PropertyRef Name="EventEventCode" />
+            <PropertyRef Name="ParticularCode" />
+          </Key>
+          <Property Name="EventEventCode" Type="int" Nullable="false" />
+          <Property Name="ParticularCode" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Time" Type="time" Precision="7" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Qulification">
+          <Key>
+            <PropertyRef Name="QulificationCode" />
+          </Key>
+          <Property Name="QulificationCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QulificationName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="TeamNo" />
+          </Key>
+          <Property Name="TeamNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TeamName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Training">
+          <Key>
+            <PropertyRef Name="TrainingCode" />
+          </Key>
+          <Property Name="TrainingCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FromDate" Type="date" />
+          <Property Name="ToDate" Type="date" />
+          <Property Name="InstructorCode" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Training_Equipment">
+          <Key>
+            <PropertyRef Name="TrainingTrainingCode" />
+            <PropertyRef Name="Equipment EqCode" />
+          </Key>
+          <Property Name="TrainingTrainingCode" Type="int" Nullable="false" />
+          <Property Name="Equipment EqCode" Type="int" Nullable="false" />
+          <Property Name="RequieredQuantity" Type="int" />
+        </EntityType>
+        <EntityType Name="TrainingGoal">
+          <Key>
+            <PropertyRef Name="GoalCode" />
+          </Key>
+          <Property Name="GoalCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GoalDescription" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TrainingGoal_Training">
+          <Key>
+            <PropertyRef Name="TrainingGoalGoalCode" />
+            <PropertyRef Name="TrainingTrainingCode" />
+          </Key>
+          <Property Name="TrainingGoalGoalCode" Type="int" Nullable="false" />
+          <Property Name="TrainingTrainingCode" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Member_City">
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="Member" Type="Self.Member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="CityCode" />
+            </Principal>
+            <Dependent Role="Member">
+              <PropertyRef Name="CityCityCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Member_Team_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Member_Team" Type="Self.Member_Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Member_Team">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Member_Team_Team">
+          <End Role="Team" Type="Self.Team" Multiplicity="1" />
+          <End Role="Member_Team" Type="Self.Member_Team" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Team">
+              <PropertyRef Name="TeamNo" />
+            </Principal>
+            <Dependent Role="Member_Team">
+              <PropertyRef Name="TeamTeamNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProjectModelStoreContainer">
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Equipment" EntityType="Self.Equipment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EquipmentType" EntityType="Self.EquipmentType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Event_EquipmentType" EntityType="Self.Event_EquipmentType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Event_Organization" EntityType="Self.Event_Organization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventType" EntityType="Self.EventType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventType_Event" EntityType="Self.EventType_Event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Instructor" EntityType="Self.Instructor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lesson" EntityType="Self.Lesson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Member_Event" EntityType="Self.Member_Event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Member_Team" EntityType="Self.Member_Team" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Member_Team_qualification" EntityType="Self.Member_Team_qualification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Member_Team_Training" EntityType="Self.Member_Team_Training" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Organization" EntityType="Self.Organization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Particular Event" EntityType="Self.Particular Event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Qulification" EntityType="Self.Qulification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Team" EntityType="Self.Team" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Training" EntityType="Self.Training" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Training_Equipment" EntityType="Self.Training_Equipment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrainingGoal" EntityType="Self.TrainingGoal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrainingGoal_Training" EntityType="Self.TrainingGoal_Training" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Member_City" Association="Self.FK_Member_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="Member" EntitySet="Member" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Member_Team_Member" Association="Self.FK_Member_Team_Member">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Member_Team" EntitySet="Member_Team" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Member_Team_Team" Association="Self.FK_Member_Team_Team">
+            <End Role="Team" EntitySet="Team" />
+            <End Role="Member_Team" EntitySet="Member_Team" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="CityCode" />
+          </Key>
+          <Property Name="CityCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Members" Relationship="ProjectModel.FKMember652489" FromRole="City" ToRole="Member" />
+        </EntityType>
+        <EntityType Name="Equipment">
+          <Key>
+            <PropertyRef Name="EqCode" />
+          </Key>
+          <Property Name="EqCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EquipmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="QuantityInStock" Type="Int32" />
+          <Property Name="Organization_OrgCode" Type="Int32" Nullable="false" />
+          <Property Name="EquipmentTypeTypeCode" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EquipmentType">
+          <Key>
+            <PropertyRef Name="TypeCode" />
+          </Key>
+          <Property Name="TypeCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="EventCode" />
+          </Key>
+          <Property Name="EventCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FromDate" Type="DateTime" Precision="0" />
+          <Property Name="ToDate" Type="DateTime" Precision="0" />
+          <Property Name="MapsLocation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LocationsDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="StartTime" Type="Time" Precision="7" />
+          <Property Name="EndTime" Type="Time" Precision="7" />
+          <Property Name="ReportedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EventDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NoOfRescued" Type="Int32" />
+          <Property Name="RescuedAges" Type="Int32" />
+          <Property Name="RescuedDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NoOfFatalities" Type="Int32" />
+          <Property Name="NoOfSurvivors" Type="Int32" />
+          <Property Name="PersonInCharge" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Event_EquipmentType">
+          <Key>
+            <PropertyRef Name="EventEventCode" />
+            <PropertyRef Name="EquipmentTypeTypeCode" />
+          </Key>
+          <Property Name="EventEventCode" Type="Int32" Nullable="false" />
+          <Property Name="EquipmentTypeTypeCode" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Event_Organization">
+          <Key>
+            <PropertyRef Name="EventEventCode" />
+            <PropertyRef Name="Organization_OrgCode" />
+          </Key>
+          <Property Name="EventEventCode" Type="Int32" Nullable="false" />
+          <Property Name="Organization_OrgCode" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EventType">
+          <Key>
+            <PropertyRef Name="EventTypeCode" />
+          </Key>
+          <Property Name="EventTypeCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EventType_Event">
+          <Key>
+            <PropertyRef Name="EventTypeEventTypeCode" />
+            <PropertyRef Name="EventEventCode" />
+          </Key>
+          <Property Name="EventTypeEventTypeCode" Type="Int32" Nullable="false" />
+          <Property Name="EventEventCode" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Instructor">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Organization_OrgCode" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Lesson">
+          <Key>
+            <PropertyRef Name="EventEventCode" />
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="EventEventCode" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <Property Name="LessonType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MirsNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CityCityCode" Type="Int32" Nullable="false" />
+          <Property Name="ContactName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactRelation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShirtSize" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PantsSize" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShoesSize" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="City" Relationship="ProjectModel.FKMember652489" FromRole="Member" ToRole="City" />
+          <NavigationProperty Name="Teams" Relationship="ProjectModel.Member_Team1" FromRole="Member" ToRole="Team" />
+        </EntityType>
+        <EntityType Name="Member_Event">
+          <Key>
+            <PropertyRef Name="MemberId" />
+            <PropertyRef Name="EventEventCode" />
+          </Key>
+          <Property Name="MemberId" Type="Int32" Nullable="false" />
+          <Property Name="EventEventCode" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Member_Team">
+          <Key>
+            <PropertyRef Name="MemberId" />
+            <PropertyRef Name="TeamTeamNo" />
+          </Key>
+          <Property Name="MemberId" Type="Int32" Nullable="false" />
+          <Property Name="TeamTeamNo" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Member_Team_qualification">
+          <Key>
+            <PropertyRef Name="Member_TeamMemberId" />
+            <PropertyRef Name="Member_TeamTeamTeamNo" />
+            <PropertyRef Name="QulificationQulificationCode" />
+          </Key>
+          <Property Name="Member_TeamMemberId" Type="Int32" Nullable="false" />
+          <Property Name="Member_TeamTeamTeamNo" Type="Int32" Nullable="false" />
+          <Property Name="QulificationQulificationCode" Type="Int32" Nullable="false" />
+          <Property Name="DateOfQulification" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Member_Team_Training">
+          <Key>
+            <PropertyRef Name="Member_TeamMemberId" />
+            <PropertyRef Name="Member_TeamTeamTeamNo" />
+            <PropertyRef Name="TrainingTrainingCode" />
+          </Key>
+          <Property Name="Member_TeamMemberId" Type="Int32" Nullable="false" />
+          <Property Name="Member_TeamTeamTeamNo" Type="Int32" Nullable="false" />
+          <Property Name="TrainingTrainingCode" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Organization">
+          <Key>
+            <PropertyRef Name="OrgCode" />
+          </Key>
+          <Property Name="OrgCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrgName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Particular_Event">
+          <Key>
+            <PropertyRef Name="EventEventCode" />
+            <PropertyRef Name="ParticularCode" />
+          </Key>
+          <Property Name="EventEventCode" Type="Int32" Nullable="false" />
+          <Property Name="ParticularCode" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Time" Type="Time" Precision="7" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Qulification">
+          <Key>
+            <PropertyRef Name="QulificationCode" />
+          </Key>
+          <Property Name="QulificationCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QulificationName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="TeamNo" />
+          </Key>
+          <Property Name="TeamNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TeamName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Members" Relationship="ProjectModel.Member_Team1" FromRole="Team" ToRole="Member" />
+        </EntityType>
+        <EntityType Name="Training">
+          <Key>
+            <PropertyRef Name="TrainingCode" />
+          </Key>
+          <Property Name="TrainingCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FromDate" Type="DateTime" Precision="0" />
+          <Property Name="ToDate" Type="DateTime" Precision="0" />
+          <Property Name="InstructorCode" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Training_Equipment">
+          <Key>
+            <PropertyRef Name="TrainingTrainingCode" />
+            <PropertyRef Name="Equipment_EqCode" />
+          </Key>
+          <Property Name="TrainingTrainingCode" Type="Int32" Nullable="false" />
+          <Property Name="Equipment_EqCode" Type="Int32" Nullable="false" />
+          <Property Name="RequieredQuantity" Type="Int32" />
+        </EntityType>
+        <EntityType Name="TrainingGoal">
+          <Key>
+            <PropertyRef Name="GoalCode" />
+          </Key>
+          <Property Name="GoalCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GoalDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TrainingGoal_Training">
+          <Key>
+            <PropertyRef Name="TrainingGoalGoalCode" />
+            <PropertyRef Name="TrainingTrainingCode" />
+          </Key>
+          <Property Name="TrainingGoalGoalCode" Type="Int32" Nullable="false" />
+          <Property Name="TrainingTrainingCode" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="ProjectDbContext" annotation:LazyLoadingEnabled="false">
+          <EntitySet Name="Cities" EntityType="Self.City" />
+          <EntitySet Name="Equipments" EntityType="Self.Equipment" />
+          <EntitySet Name="EquipmentTypes" EntityType="Self.EquipmentType" />
+          <EntitySet Name="Events" EntityType="Self.Event" />
+          <EntitySet Name="Event_EquipmentType" EntityType="Self.Event_EquipmentType" />
+          <EntitySet Name="Event_Organization" EntityType="Self.Event_Organization" />
+          <EntitySet Name="EventTypes" EntityType="Self.EventType" />
+          <EntitySet Name="EventType_Event" EntityType="Self.EventType_Event" />
+          <EntitySet Name="Instructors" EntityType="Self.Instructor" />
+          <EntitySet Name="Lessons" EntityType="Self.Lesson" />
+          <EntitySet Name="Members" EntityType="Self.Member" />
+          <EntitySet Name="Member_Event" EntityType="Self.Member_Event" />
+          <EntitySet Name="Member_Team" EntityType="Self.Member_Team" />
+          <EntitySet Name="Member_Team_qualification" EntityType="Self.Member_Team_qualification" />
+          <EntitySet Name="Member_Team_Training" EntityType="Self.Member_Team_Training" />
+          <EntitySet Name="Organizations" EntityType="Self.Organization" />
+          <EntitySet Name="Particular_Events" EntityType="Self.Particular_Event" />
+          <EntitySet Name="Qulifications" EntityType="Self.Qulification" />
+          <EntitySet Name="Teams" EntityType="Self.Team" />
+          <EntitySet Name="Trainings" EntityType="Self.Training" />
+          <EntitySet Name="Training_Equipment" EntityType="Self.Training_Equipment" />
+          <EntitySet Name="TrainingGoals" EntityType="Self.TrainingGoal" />
+          <EntitySet Name="TrainingGoal_Training" EntityType="Self.TrainingGoal_Training" />
+          <AssociationSet Name="FKMember652489" Association="ProjectModel.FKMember652489">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="Member" EntitySet="Members" />
+          </AssociationSet>
+          <AssociationSet Name="Member_Team1" Association="ProjectModel.Member_Team1">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Team" EntitySet="Teams" />
+          </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="ProjectModel.sysdiagram" />
+        </EntityContainer>
+        <Association Name="FKMember652489">
+          <End Type="ProjectModel.City" Role="City" Multiplicity="1" />
+          <End Type="ProjectModel.Member" Role="Member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="CityCode" />
+            </Principal>
+            <Dependent Role="Member">
+              <PropertyRef Name="CityCityCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Member_Team1">
+          <End Type="ProjectModel.Member" Role="Member" Multiplicity="*" />
+          <End Type="ProjectModel.Team" Role="Team" Multiplicity="*" />
+        </Association>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProjectModelStoreContainer" CdmEntityContainer="ProjectDbContext">
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="ProjectModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="CityCode" ColumnName="CityCode" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Equipments">
+            <EntityTypeMapping TypeName="ProjectModel.Equipment">
+              <MappingFragment StoreEntitySet="Equipment">
+                <ScalarProperty Name="EqCode" ColumnName="EqCode" />
+                <ScalarProperty Name="EquipmentName" ColumnName="EquipmentName" />
+                <ScalarProperty Name="QuantityInStock" ColumnName="QuantityInStock" />
+                <ScalarProperty Name="Organization_OrgCode" ColumnName="Organization OrgCode" />
+                <ScalarProperty Name="EquipmentTypeTypeCode" ColumnName="EquipmentTypeTypeCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EquipmentTypes">
+            <EntityTypeMapping TypeName="ProjectModel.EquipmentType">
+              <MappingFragment StoreEntitySet="EquipmentType">
+                <ScalarProperty Name="TypeCode" ColumnName="TypeCode" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="ProjectModel.Event">
+              <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="EventCode" ColumnName="EventCode" />
+                <ScalarProperty Name="EventName" ColumnName="EventName" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="MapsLocation" ColumnName="MapsLocation" />
+                <ScalarProperty Name="LocationsDescription" ColumnName="LocationsDescription" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="ReportedBy" ColumnName="ReportedBy" />
+                <ScalarProperty Name="EventDescription" ColumnName="EventDescription" />
+                <ScalarProperty Name="NoOfRescued" ColumnName="NoOfRescued" />
+                <ScalarProperty Name="RescuedAges" ColumnName="RescuedAges" />
+                <ScalarProperty Name="RescuedDesc" ColumnName="RescuedDesc" />
+                <ScalarProperty Name="NoOfFatalities" ColumnName="NoOfFatalities" />
+                <ScalarProperty Name="NoOfSurvivors" ColumnName="NoOfSurvivors" />
+                <ScalarProperty Name="PersonInCharge" ColumnName="PersonInCharge" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Event_EquipmentType">
+            <EntityTypeMapping TypeName="ProjectModel.Event_EquipmentType">
+              <MappingFragment StoreEntitySet="Event_EquipmentType">
+                <ScalarProperty Name="EventEventCode" ColumnName="EventEventCode" />
+                <ScalarProperty Name="EquipmentTypeTypeCode" ColumnName="EquipmentTypeTypeCode" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Event_Organization">
+            <EntityTypeMapping TypeName="ProjectModel.Event_Organization">
+              <MappingFragment StoreEntitySet="Event_Organization">
+                <ScalarProperty Name="EventEventCode" ColumnName="EventEventCode" />
+                <ScalarProperty Name="Organization_OrgCode" ColumnName="Organization OrgCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventTypes">
+            <EntityTypeMapping TypeName="ProjectModel.EventType">
+              <MappingFragment StoreEntitySet="EventType">
+                <ScalarProperty Name="EventTypeCode" ColumnName="EventTypeCode" />
+                <ScalarProperty Name="EventTypeName" ColumnName="EventTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventType_Event">
+            <EntityTypeMapping TypeName="ProjectModel.EventType_Event">
+              <MappingFragment StoreEntitySet="EventType_Event">
+                <ScalarProperty Name="EventTypeEventTypeCode" ColumnName="EventTypeEventTypeCode" />
+                <ScalarProperty Name="EventEventCode" ColumnName="EventEventCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Instructors">
+            <EntityTypeMapping TypeName="ProjectModel.Instructor">
+              <MappingFragment StoreEntitySet="Instructor">
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="Organization_OrgCode" ColumnName="Organization OrgCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lessons">
+            <EntityTypeMapping TypeName="ProjectModel.Lesson">
+              <MappingFragment StoreEntitySet="Lesson">
+                <ScalarProperty Name="EventEventCode" ColumnName="EventEventCode" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="LessonType" ColumnName="LessonType" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Members">
+            <EntityTypeMapping TypeName="ProjectModel.Member">
+              <MappingFragment StoreEntitySet="Member">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="MirsNo" ColumnName="MirsNo" />
+                <ScalarProperty Name="CityCityCode" ColumnName="CityCityCode" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="ContactPhone" ColumnName="ContactPhone" />
+                <ScalarProperty Name="ContactRelation" ColumnName="ContactRelation" />
+                <ScalarProperty Name="ShirtSize" ColumnName="ShirtSize" />
+                <ScalarProperty Name="PantsSize" ColumnName="PantsSize" />
+                <ScalarProperty Name="ShoesSize" ColumnName="ShoesSize" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Member_Event">
+            <EntityTypeMapping TypeName="ProjectModel.Member_Event">
+              <MappingFragment StoreEntitySet="Member_Event">
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="EventEventCode" ColumnName="EventEventCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Member_Team">
+            <EntityTypeMapping TypeName="ProjectModel.Member_Team">
+              <MappingFragment StoreEntitySet="Member_Team">
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="TeamTeamNo" ColumnName="TeamTeamNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Member_Team_qualification">
+            <EntityTypeMapping TypeName="ProjectModel.Member_Team_qualification">
+              <MappingFragment StoreEntitySet="Member_Team_qualification">
+                <ScalarProperty Name="Member_TeamMemberId" ColumnName="Member_TeamMemberId" />
+                <ScalarProperty Name="Member_TeamTeamTeamNo" ColumnName="Member_TeamTeamTeamNo" />
+                <ScalarProperty Name="QulificationQulificationCode" ColumnName="QulificationQulificationCode" />
+                <ScalarProperty Name="DateOfQulification" ColumnName="DateOfQulification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Member_Team_Training">
+            <EntityTypeMapping TypeName="ProjectModel.Member_Team_Training">
+              <MappingFragment StoreEntitySet="Member_Team_Training">
+                <ScalarProperty Name="Member_TeamMemberId" ColumnName="Member_TeamMemberId" />
+                <ScalarProperty Name="Member_TeamTeamTeamNo" ColumnName="Member_TeamTeamTeamNo" />
+                <ScalarProperty Name="TrainingTrainingCode" ColumnName="TrainingTrainingCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Organizations">
+            <EntityTypeMapping TypeName="ProjectModel.Organization">
+              <MappingFragment StoreEntitySet="Organization">
+                <ScalarProperty Name="OrgCode" ColumnName="OrgCode" />
+                <ScalarProperty Name="OrgName" ColumnName="OrgName" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Particular_Events">
+            <EntityTypeMapping TypeName="ProjectModel.Particular_Event">
+              <MappingFragment StoreEntitySet="Particular Event">
+                <ScalarProperty Name="EventEventCode" ColumnName="EventEventCode" />
+                <ScalarProperty Name="ParticularCode" ColumnName="ParticularCode" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Qulifications">
+            <EntityTypeMapping TypeName="ProjectModel.Qulification">
+              <MappingFragment StoreEntitySet="Qulification">
+                <ScalarProperty Name="QulificationCode" ColumnName="QulificationCode" />
+                <ScalarProperty Name="QulificationName" ColumnName="QulificationName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teams">
+            <EntityTypeMapping TypeName="ProjectModel.Team">
+              <MappingFragment StoreEntitySet="Team">
+                <ScalarProperty Name="TeamNo" ColumnName="TeamNo" />
+                <ScalarProperty Name="TeamName" ColumnName="TeamName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trainings">
+            <EntityTypeMapping TypeName="ProjectModel.Training">
+              <MappingFragment StoreEntitySet="Training">
+                <ScalarProperty Name="TrainingCode" ColumnName="TrainingCode" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="InstructorCode" ColumnName="InstructorCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Training_Equipment">
+            <EntityTypeMapping TypeName="ProjectModel.Training_Equipment">
+              <MappingFragment StoreEntitySet="Training_Equipment">
+                <ScalarProperty Name="TrainingTrainingCode" ColumnName="TrainingTrainingCode" />
+                <ScalarProperty Name="Equipment_EqCode" ColumnName="Equipment EqCode" />
+                <ScalarProperty Name="RequieredQuantity" ColumnName="RequieredQuantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrainingGoals">
+            <EntityTypeMapping TypeName="ProjectModel.TrainingGoal">
+              <MappingFragment StoreEntitySet="TrainingGoal">
+                <ScalarProperty Name="GoalCode" ColumnName="GoalCode" />
+                <ScalarProperty Name="GoalDescription" ColumnName="GoalDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrainingGoal_Training">
+            <EntityTypeMapping TypeName="ProjectModel.TrainingGoal_Training">
+              <MappingFragment StoreEntitySet="TrainingGoal_Training">
+                <ScalarProperty Name="TrainingGoalGoalCode" ColumnName="TrainingGoalGoalCode" />
+                <ScalarProperty Name="TrainingTrainingCode" ColumnName="TrainingTrainingCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Member_Team1" TypeName="ProjectModel.Member_Team1" StoreEntitySet="Member_Team">
+            <EndProperty Name="Team">
+              <ScalarProperty Name="TeamNo" ColumnName="TeamTeamNo" />
+            </EndProperty>
+            <EndProperty Name="Member">
+              <ScalarProperty Name="Id" ColumnName="MemberId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ProjectModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

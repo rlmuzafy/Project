@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="96936b4de8f94a0d86a499d56373e3f5" Name="Diagram1" ZoomLevel="77">
+        <EntityTypeShape EntityType="ProjectModel.City" Width="1.5" PointX="12.5" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.Equipment" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.EquipmentType" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.Event" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.Event_EquipmentType" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.Event_Organization" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.EventType" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.EventType_Event" Width="1.5" PointX="6" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.Instructor" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.Lesson" Width="1.5" PointX="7.125" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.Member" Width="1.5" PointX="9" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.Member_Event" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.Member_Team" Width="1.5" PointX="10.875" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.Member_Team_qualification" Width="1.5" PointX="8.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.Member_Team_Training" Width="1.5" PointX="2.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.Organization" Width="1.5" PointX="4.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.Particular_Event" Width="1.5" PointX="0.875" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.Qulification" Width="1.5" PointX="6.625" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.Team" Width="1.5" PointX="12.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.Training" Width="1.5" PointX="10.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.Training_Equipment" Width="1.5" PointX="6.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.TrainingGoal" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProjectModel.TrainingGoal_Training" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
+        <AssociationConnector Association="ProjectModel.FKMember652489" />
+        <AssociationConnector Association="ProjectModel.Member_Team1" />
+        <EntityTypeShape EntityType="ProjectModel.sysdiagram" Width="1.5" PointX="3.375" PointY="12.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="lib/jquery.js"></script>
+    <link href="lib/w3.css" rel="stylesheet" />
+    <link href="lib/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="shared/MyCss.css" rel="stylesheet" />
+    <script src="shared/MyJS.js"></script>
+    <style>
+
+
+        .img1 {
+            display: block;
+            width: 55%;
+            margin: auto;
+        }
+
+        .centered {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin: auto;
+        }
+
+        h1 {
+            margin: auto;
+            color: white;
+            text-align: center;
+        }
+    </style>
+
+
+    <script>
+
+        function login() {
+
+
+            let member_id = $("#member_id").val();
+            let password = $("#password").val();
+            if (member_id == "" || password == "") {
+                alert("חייב להכניס ערכים לשם משתמש ולסיסמא");
+                return;
+            }
+            else {
+                $("#loader").removeClass("w3-hide");
+                //id and pass to use: 13667050
+
+
+                AjaxJsonHandler(SystemHelper.WebApiEndPoints.login + member_id + "/" + password, SystemHelper.HttpVerbs.POST, null, loginSuccess, GenericError)
+            }
+
+            function loginSuccess(member) {
+                if (member != null) {
+                    localStorage.setItem(SystemHelper.Storage.user, JSON.stringify(member));
+                    location.href = "lib/dreamingechoes-sb-admin2-rtl-217d09c/Members2.html";
+                }
+
+                else {
+                    $("#loader").addClass("w3-hide");
+                    alert("שם משתמש / סיסמא שגויים");
+                }
+            }
+        }
+     
+
+    </script>
+
+</head>
+<body dir="rtl">
+
+    <!--Logo-->
+    <div class="w3-dark-gray w3-container">
+        <div class="w3-panel">
+            <img id="logo" src="images/Logo.png" />
+        </div>
+    </div>
+
+    <!--Helicopter-->
+    <div class="w3-orange w3-container">
+        <div class="w3-panel">
+            <img class="img1" src="images/Heli.jpg" />
+            <div class="centered">
+                <h1>מערכת מידע</h1>
+                <h1>יחידת חילוץ שומרון</h1>
+            </div>
+        </div>
+    </div>
+
+    <!--Login box-->
+    <div class="login_box w3-gray w3-padding w3-border w3-border-black">
+        <div class="w3-container">
+            <i class="fa fa-user"></i>
+        </div>
+
+        <div class="w3-container">
+            <input type="text" class="w3-input" placeholder="שם משתמש" id="member_id" />
+        </div>
+
+        <div class="w3-container">
+            <i class="fa fa-lock"></i>
+        </div>
+
+        <div class="w3-container">
+            <input type="password" class="w3-input" placeholder="סיסמא" id="password" />
+        </div>
+
+        <div class="w3-panel w3-center">
+            <input type="button" value="כניסה" class="button" onclick="login()" />
+            <br /><br />
+            <label>
+                <input name="remember" type="checkbox" value="Remember Me">
+                <span>זכור אותי</span>
+            </label>
+        </div>
+
+        <div class="w3-container w3-center">
+            <i class="fa fa-refresh w3-spin w3-hide" id="loader"></i>
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+ 
