@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web;
 
 namespace WebApi.Controllers
 {
@@ -32,6 +33,16 @@ namespace WebApi.Controllers
         public Member GetMember(int _id)
         {
             return mService.GetMember(_id);
+        }
+
+
+        [HttpPut]
+        [Route("api/Member")]
+        public void Put()
+        {
+            HttpPostedFile f = HttpContext.Current.Request.Files["file"];
+            string _id = HttpContext.Current.Request.Params["new_ID"];
+            f.SaveAs(HttpContext.Current.Server.MapPath("~/images/userimage") + f);
         }
 
         [HttpPost]

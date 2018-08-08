@@ -25,46 +25,9 @@
         }
     </style>
 
-    <script>
 
-        function SubmitMemeber() {
-            let New_Member = {
-                Id: $("#new_ID").val(),
-                FirstName: $("#new_Fname").val(),
-                LastName: $("#new_Lname").val(),
-                CityCityCode: 30,
-                new_Pnum: $("#new_Pnum").val(),
-                PhoneNo: $("#new_Phone").val(),
-                Mail: $("#new_email").val(),
-                new_city: $("#new_city").val(),
-                new_team: $("#new_team").val(),
-                new_MedDate: $("#new_MedDate").val(),
-                ShirtSize: $("#new_Shirt").val(),
-                PantsSize: $("#new_Pants").val(),
-                ShoesSize: $("#new_Shoes").val(),
-                ContactName: $("#new_EPreson").val(),
-                ContactPhone: $("#new_EPersonPhone").val(),
-                ContactRelation: $("#new_EPersonRel").val(),
-                Photo: "user_temp.png",
-                MirsNo: $("#new_Mirs").val()
 
-                //profile_img_url: $("#img" + i).attr("src")
-
-            };
-
-            localStorage.setItem("New_Member", JSON.stringify(New_Member));
-
-            AjaxJsonHandler(SystemHelper.WebApiEndPoints.member, SystemHelper.HttpVerbs.POST, New_Member, MemberAdded, GenericError)
-
-        }
-
-        function MemberAdded() {
-
-            location.href = "Members2.html";
-        }
-    </script>
-
-    <script src="jquery.min.js"></script>
+    <script src="js/jquery/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="../jquery.js"></script>
     <link href="../w3.css" rel="stylesheet" />
@@ -94,17 +57,72 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-
-
     http://jsfiddle.net/sunder_tiwnar/m0L0sf8a/
 
+
     <script>
-        $('input[name=file]').change(function () {
-            alert($(this).val());
-        });
+        function SubmitMemeber() {
+            let New_Member = {
+                Id: $("#new_ID").val(),
+                FirstName: $("#new_Fname").val(),
+                LastName: $("#new_Lname").val(),
+                CityCityCode: 30,
+                new_Pnum: $("#new_Pnum").val(),
+                PhoneNo: $("#new_Phone").val(),
+                Mail: $("#new_email").val(),
+                new_city: $("#new_city").val(),
+                new_team: $("#new_team").val(),
+                new_MedDate: $("#new_MedDate").val(),
+                ShirtSize: $("#new_Shirt").val(),
+                PantsSize: $("#new_Pants").val(),
+                ShoesSize: $("#new_Shoes").val(),
+                ContactName: $("#new_EPreson").val(),
+                ContactPhone: $("#new_EPersonPhone").val(),
+                ContactRelation: $("#new_EPersonRel").val(),
+                Photo: file_name,
+                MirsNo: $("#new_Mirs").val()
+            };
+
+            localStorage.setItem("New_Member", JSON.stringify(New_Member));
+
+            AjaxJsonHandler(SystemHelper.WebApiEndPoints.member, SystemHelper.HttpVerbs.POST, New_Member, MemberAdded, GenericError)
+        }
+
+        function MemberAdded() {
+            location.href = "Members2.html";
+        }
+
+
     </script>
 
+    <script>
+        $(document).on('change', '#fileupload', function (e) {
+            var file = $(this);
+            var test = 'Event Triggered';
+            var file_name = e.target.files[0].name;
+
+            function SaveFile() {
+                var fd = new FormData();
+                fd.append("key", $("new_ID").val());
+                fd.append("file", file_name);
+
+                $.ajax({
+                    url: "api/Member/",
+                    data: fd,
+                    contentType: false,
+                    processData: false,
+                    type: "PUT",
+                    success: function (data) {
+                    alert("success")}
+                    ,
+                    error: function (e) {
+                    }
+                });
+        }
+        });
+        
+           
+    </script>
 </head>
 <body dir="rtl">
     <div id="wrapper">
@@ -444,7 +462,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">הכנסת מתנדב חדש</h1>
+                    <h1 class="page-header" >הכנסת מתנדב חדש</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -459,46 +477,14 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <form role="form">
-<!--הוספת אפשרות של בחירת תמונת פרופיל (צריך לקחת את השם של התמונה בלבד בתכלס)-->
-                                    
 
                                         <div style="float:right">
                                             <img id="profileImage" src="../../images/userimage/user_temp.png" />
-                                            <!--<input id="imageUpload" type="file" name="file1" />-->
-                                            <input name="file" type="file"/>
-
-
-                                            <!--<script>
-
-            $("#imageUpload").on("change", function () {
-                var file1 = $("#imageUpload");
-                var len = file1[0].files.length;
-                var name = files1[0].files.name;
-                if (len) {
-                    alert(name)
-                }
-            })
-
-            $("#imageUpload").click(function (e) {
-            //var filename = $('input[type=file]').val();
-                var filename = $("#imageUpload").val();
-                alert(fileName);
-
-                });
-
-            $("#imageUpload").click(function (e) {
-                var fileName = e.target.files[0].name;
-
-                //    $("#profileImage").attr("src", "../../images/userimage/"+fileName+".png")
-                //    alert(fileName);
-                //});
-
-    </script>-->
+                                            <input name="file" type="file" id="fileupload"  />
 
                                         </div>
                                         <table>
                                             <tr>
-                                                
                                                 <td><span>שם פרטי</span></td>
                                                 <td><input class="form-control" type="text" placeholder="שם פרטי" id="new_Fname"></td>
                                             </tr>
@@ -597,11 +583,14 @@
                                                 <td><input class="form-control" type="text" placeholder="לדוגמא: בן/בת זוג" id="new_EPersonRel"></td>
                                             </tr>
                                             <tr>
-                                                <td colspan="2" ><input type="button" class="button" value="הוסף מתנדב" onclick="SubmitMemeber()" /></td>
+                                                <td colspan="2"><input type="button" class="button" value="הוסף מתנדב" onclick="SubmitMemeber()" /></td>
+                                                <td>
+                                                    <button type="reset" class="button" onclick="window.location='form-member.html'">נקה טופס</button>
+                                                </td>
                                             </tr>
                                         </table>
 
-                                        
+                                        </form>
 
 
 
@@ -618,175 +607,127 @@
 
 
 
-                                        <div class="form-group">
-                                            <label>Text Input</label>
-                                            <input class="form-control" type="text" placeholder="שם פרטי">
-                                        </div>
-
-
-                                        <div class="form-group">
-                                            <label>File input</label>
-                                            <input type="file" id="fileInput">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Text area</label>
-                                            <textarea class="form-control" rows="3"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Checkboxes</label>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 1
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 2
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 3
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Inline Checkboxes</label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">1
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">2
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">3
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Radio Buttons</label>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>Radio 1
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Radio 2
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">Radio 3
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Inline Radio Buttons</label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" value="option1" checked>1
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline2" value="option2">2
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline3" value="option3">3
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Selects</label>
-                                            <select class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Multiple Selects</label>
-                                            <select multiple class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                        <button type="submit" class="btn btn-default">Submit Button</button>
-                                        <button type="reset" class="btn btn-default">Reset Button</button>
-                                    </form>
-                                </div>
-                                <!-- /.col-lg-6 (nested) -->
-                                <div class="col-lg-6">
-                                    <h1>Disabled Form States</h1>
-                                    <form role="form">
-                                        <fieldset disabled>
-                                            <div class="form-group">
-                                                <label for="disabledSelect">Disabled input</label>
-                                                <input class="form-control" id="disabledInput" type="text" placeholder="Disabled input" disabled>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="disabledSelect">Disabled select menu</label>
-                                                <select id="disabledSelect" class="form-control">
-                                                    <option>Disabled select</option>
-                                                </select>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox">Disabled Checkbox
-                                                </label>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">Disabled Button</button>
-                                        </fieldset>
-                                    </form>
-                                    <h1>Form Validation States</h1>
-                                    <form role="form">
-                                        <div class="form-group has-success">
-                                            <label class="control-label" for="inputSuccess">Input with success</label>
-                                            <input type="text" class="form-control" id="inputSuccess">
-                                        </div>
-                                        <div class="form-group has-warning">
-                                            <label class="control-label" for="inputWarning">Input with warning</label>
-                                            <input type="text" class="form-control" id="inputWarning">
-                                        </div>
-                                        <div class="form-group has-error">
-                                            <label class="control-label" for="inputError">Input with error</label>
-                                            <input type="text" class="form-control" id="inputError">
-                                        </div>
-                                    </form>
-                                    <h1>Input Groups</h1>
-                                    <form role="form">
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">@</span>
-                                            <input type="text" class="form-control" placeholder="Username">
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-addon">.00</span>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">
-                                                <i class="fa fa-eur"></i>
-                                            </span>
-                                            <input type="text" class="form-control" placeholder="Font Awesome Icon">
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">$</span>
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-addon">.00</span>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default" type="button">
-                                                    <i class="fa fa-search"></i>
-                                                </button>
-                                            </span>
-                                        </div>
-                                    </form>
-                                </div>
-                                <!-- /.col-lg-6 (nested) -->
-                            </div>
+                                        <!--<div class="form-group">
+        <label>Text Input</label>
+        <input class="form-control" type="text" placeholder="שם פרטי">
+    </div>-->
+                                        <!--<div class="form-group">
+        <label>Inline Checkboxes</label>
+        <label class="checkbox-inline">
+            <input type="checkbox">1
+        </label>
+        <label class="checkbox-inline">
+            <input type="checkbox">2
+        </label>
+        <label class="checkbox-inline">
+            <input type="checkbox">3
+        </label>
+    </div>
+    <div class="form-group">
+        <label>Radio Buttons</label>
+        <div class="radio">
+            <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>Radio1
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Radio 2
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">Radio 3
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Inline Radio Buttons</label>
+        <label class="radio-inline">
+            <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" value="option1" checked>1
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline2" value="option2">2
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline3" value="option3">3
+        </label>
+    </div>-->
+                                        <!--<button type="submit" class="btn btn-default">Submit Button</button>-->
+                                        <!--<button type="reset" class="btn btn-default">Reset Button</button>-->
+                                        <!--</form>
+    </div>
+     /.col-lg-6 (nested)
+    <div class="col-lg-6">
+        <h1>Disabled Form States</h1>
+        <form role="form">
+            <fieldset disabled>
+                <div class="form-group">
+                    <label for="disabledSelect">Disabled input</label>
+                    <input class="form-control" id="disabledInput" type="text" placeholder="Disabled input" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="disabledSelect">Disabled select menu</label>
+                    <select id="disabledSelect" class="form-control">
+                        <option>Disabled select</option>
+                    </select>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox">Disabled Checkbox
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Disabled Button</button>
+            </fieldset>
+        </form>-->
+                                        <!--<h1>Form Validation States</h1>
+        <form role="form">
+            <div class="form-group has-success">
+                <label class="control-label" for="inputSuccess">Input with success</label>
+                <input type="text" class="form-control" id="inputSuccess">
+            </div>
+            <div class="form-group has-warning">
+                <label class="control-label" for="inputWarning">Input with warning</label>
+                <input type="text" class="form-control" id="inputWarning">
+            </div>
+            <div class="form-group has-error">
+                <label class="control-label" for="inputError">Input with error</label>
+                <input type="text" class="form-control" id="inputError">
+            </div>
+        </form>
+        <h1>Input Groups</h1>
+        <form role="form">
+            <div class="form-group input-group">
+                <span class="input-group-addon">@</span>
+                <input type="text" class="form-control" placeholder="Username">
+            </div>
+            <div class="form-group input-group">
+                <input type="text" class="form-control">
+                <span class="input-group-addon">.00</span>
+            </div>
+            <div class="form-group input-group">
+                <span class="input-group-addon">
+                    <i class="fa fa-eur"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="Font Awesome Icon">
+            </div>
+            <div class="form-group input-group">
+                <span class="input-group-addon">$</span>
+                <input type="text" class="form-control">
+                <span class="input-group-addon">.00</span>
+            </div>
+            <div class="form-group input-group">
+                <input type="text" class="form-control">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+    </div>-->
+                                        <!-- /.col-lg-6 (nested) -->
+</div>
                             <!-- /.row (nested) -->
                         </div>
                         <!-- /.panel-body -->
@@ -808,5 +749,6 @@
     <script src="js/metisMenu/metisMenu.min.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="js/sb-admin-2.js"></script>
+        </div>
 </body>
 </html>
