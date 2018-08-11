@@ -79,6 +79,7 @@
                 ContactName: $("#new_EPreson").val(),
                 ContactPhone: $("#new_EPersonPhone").val(),
                 ContactRelation: $("#new_EPersonRel").val(),
+                //Photo: localStorage.getItem("New_Member_file"),
                 Photo: file_name,
                 MirsNo: $("#new_Mirs").val()
             };
@@ -93,18 +94,17 @@
         }
 
 
-    </script>
-
-    <script>
+   
         $(document).on('change', '#fileupload', function (e) {
             var file = $(this);
             var test = 'Event Triggered';
-            var file_name = e.target.files[0].name;
+            file_name = e.target.files[0].name;
 
             function SaveFile() {
                 var fd = new FormData();
                 fd.append("key", $("new_ID").val());
                 fd.append("file", file_name);
+                localStorage.setItem("New_Member_file", JSON.stringify(file_name));
 
                 $.ajax({
                     url: "api/Member/",
@@ -120,7 +120,10 @@
                 });
         }
         });
-        
+
+        function BackToMemebers() {
+            location.href = "Members2.html";
+        }
            
     </script>
 </head>
@@ -462,8 +465,9 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header" >הכנסת מתנדב חדש</h1>
+                    <h1 class="page-header">הכנסת מתנדב חדש</h1>
                 </div>
+                
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
@@ -472,6 +476,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Basic Form Elements
+                                <input type="button" style="float:left" class="button" value="חזרה למתנדבים" onclick="BackToMemebers()" />
                         </div>
                         <div class="panel-body">
                             <div class="row">
@@ -583,8 +588,10 @@
                                                 <td><input class="form-control" type="text" placeholder="לדוגמא: בן/בת זוג" id="new_EPersonRel"></td>
                                             </tr>
                                             <tr>
-                                                <td colspan="2"><input type="button" class="button" value="הוסף מתנדב" onclick="SubmitMemeber()" /></td>
-                                                <td>
+                                                <td colspan="2">
+                                                    <input type="button" class="button" value="הוסף מתנדב" onclick="SubmitMemeber()" />
+                                                </td>
+                                                <td colspan="2">
                                                     <button type="reset" class="button" onclick="window.location='form-member.html'">נקה טופס</button>
                                                 </td>
                                             </tr>

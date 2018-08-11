@@ -24,7 +24,7 @@ var SystemHelper = {
         login: "/api/Login/",
         member: "/api/Member/",
         city: "/api/City/"
-     
+
     },
     HttpVerbs: {
         POST: "POST",
@@ -38,8 +38,6 @@ var SystemHelper = {
     getFromStorage: function (key) {
         return JSON.parse(localStorage.getItem(key));
     }
-
-    
 }
 
 function getQueryString(par) {

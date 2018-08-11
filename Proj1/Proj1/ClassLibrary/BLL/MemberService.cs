@@ -44,7 +44,7 @@ namespace ClassLibrary.BLL
             nm.FirstName = memberx.FirstName;
             nm.LastName = memberx.LastName;
             nm.PhoneNo = memberx.PhoneNo;
-            nm.CityCityCode = 30;
+            nm.CityCityCode = memberx.CityCityCode;
             nm.Mail = memberx.Mail;
             nm.ContactName = memberx.ContactName;
             nm.ContactPhone = memberx.ContactPhone;
@@ -54,6 +54,7 @@ namespace ClassLibrary.BLL
             nm.ShoesSize = memberx.ShoesSize;
             nm.Photo = memberx.Photo;
             nm.MirsNo = memberx.MirsNo;
+        
 
 
             db.Entry(nm).State = EntityState.Added;

@@ -31,10 +31,11 @@
 
 
         function show() {
-            var _id = getQueryString("id");
-            AjaxJsonHandler(SystemHelper.WebApiEndPoints.member + _id, SystemHelper.HttpVerbs.GET, null, ShowMember, GenericError);
+            let st = SystemHelper.getFromStorage(SystemHelper.Storage.user);
+            if (st != null) {
+                AjaxJsonHandler(SystemHelper.WebApiEndPoints.member + st.Id, SystemHelper.HttpVerbs.GET, null, ShowMember, GenericError);
+            }
         };
-      
             
         
 
@@ -341,7 +342,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li>
-                            <a href="User-Page.html"><i class="fa fa-user fa-fw"></i> פרופיל משתמש</a>
+                            <a href="Member-Page.html"><i class="fa fa-user fa-fw"></i> פרופיל משתמש</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-gear fa-fw"></i> הגדרות</a>
